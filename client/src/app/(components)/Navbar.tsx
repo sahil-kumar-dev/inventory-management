@@ -1,15 +1,35 @@
 'use client'
 
-import { Bell, Menu, Settings, Sun } from 'lucide-react'
+import { Bell, Menu, Moon, Settings, Sun } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../redux'
+import { setIsDarkMode, setIsSidebarCollapsed } from '@/state'
 
 const Navbar = () => {
+
+    const dispatch = useAppDispatch();
+
+    const isSidebarCollapsed = useAppSelector((state) => state.global.isSidebarCollapsed);
+
+    const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+
+    const toggleSidebar = () => {
+        dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
+    };
+
+    const toggleDarkMode = () => {
+        dispatch(setIsDarkMode(!isDarkMode));
+    };
+
     return (
         <div className='flex justify-between items-center w-full mb-7'>
             {/* left side */}
             <div className="flex justify-between items-center gap-5">
-                <button className="px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100" >
+                <button
+                    className="px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
+                    onClick={toggleSidebar}
+                >
                     <Menu className='size-4' />
                 </button>
                 <div className="relative">
@@ -30,16 +50,20 @@ const Navbar = () => {
             <div className="flex justify-between items-center gap-5">
                 <div className="hidden md:flex justify-between items-center gap-5">
                     <div className="">
-                        <button className="">
-                            <Sun className='cursor-pointer text-gray-500 size-4 ' />
+                        <button className="" onClick={toggleDarkMode}>
+                            {
+                                isDarkMode ?
+                                    <Sun className='size-4 text-gray-500' /> :
+                                    <Moon className='size-4 text-gray-500' />
+                            }
                         </button>
                     </div>
-                    <div className="relative">
+                    {/* <div className="relative">
                         <Bell className='cursor-pointer text-gray-500 size-6 ' />
                         <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">
                             9+
                         </span>
-                    </div>
+                    </div> */}
                     <hr className="w-0 h-7 border border-solid border-l border-gray-300 mx-3" />
                     <div className="flex items-center gap-3 cursor-pointer">
                         <div className="size-9">
