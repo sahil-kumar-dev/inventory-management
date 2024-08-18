@@ -9,8 +9,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
-const dashboardRoutes_1 = __importDefault(require("./routes/dashboardRoutes"));
 // Route Imports
+const dashboardRoutes_1 = __importDefault(require("./routes/dashboardRoutes"));
+const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 // Configurations
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -24,5 +25,6 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 // Routes
 app.use('/dashboard', dashboardRoutes_1.default);
+app.use('/products', productRoutes_1.default);
 // Server
 app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
